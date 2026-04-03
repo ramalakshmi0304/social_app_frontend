@@ -163,7 +163,7 @@ const PostCard = ({ post, onLike, onComment, currentUserId, onUpdate, onDelete }
                   ? post.imageUrl
                   : post.imageUrl.startsWith("http")
                     ? post.imageUrl
-                    : `http://localhost:5000/${post.imageUrl}`
+                    : `${import.meta.env.VITE_API_URL.replace('/api', '')}/${post.imageUrl}`
               }
               alt="post"
               sx={{
