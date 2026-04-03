@@ -159,11 +159,9 @@ const PostCard = ({ post, onLike, onComment, currentUserId, onUpdate, onDelete }
             <Box
               component="img"
               src={
-                post.imageUrl.startsWith("blob:")
+                post.imageUrl?.startsWith("http")
                   ? post.imageUrl
-                  : post.imageUrl.startsWith("http")
-                    ? post.imageUrl
-                    : `${import.meta.env.VITE_API_URL.replace('/api', '')}/${post.imageUrl}`
+                  : `${import.meta.env.VITE_API_URL.replace('/api', '')}/${post.imageUrl}`
               }
               alt="post"
               sx={{
