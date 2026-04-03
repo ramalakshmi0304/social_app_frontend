@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthContext, AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
+import HomePage from './pages/HomePage'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { CircularProgress, Box } from '@mui/material';
@@ -22,7 +22,7 @@ const AppContent = () => {
     <Router>
       <Navbar user={user} setUser={setUser} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
         <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
       </Routes>
