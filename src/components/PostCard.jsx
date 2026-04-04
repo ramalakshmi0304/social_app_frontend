@@ -158,12 +158,13 @@ const PostCard = ({ post, onLike, onComment, currentUserId, onUpdate, onDelete }
           >
             <Box
               component="img"
-              src={
-                post.imageUrl?.startsWith("http")
-                  ? post.imageUrl
-                  : `${import.meta.env.VITE_API_URL.replace('/api', '')}/${post.imageUrl}`
-              }
+              src={post.imageUrl} // 👈 If it's Cloudinary, it's already an absolute URL
               alt="post"
+              onError={(e) => {
+                // This will help you debug! 
+                // If the image fails to load, it will log the exact URL that failed.
+                console.log("Broken Image URL:", post.imageUrl);
+              }}
               sx={{
                 width: "100%",
                 height: "100%",

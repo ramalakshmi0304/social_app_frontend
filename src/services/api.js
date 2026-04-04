@@ -8,8 +8,8 @@ const API = axios.create({
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem('token');
   if (token) {
-    // Ensure it matches the 'Bearer ' format your backend expects
-    req.headers.Authorization = `Bearer ${token}`;
+    // Some versions of Axios prefer setting it this way to avoid overwriting defaults
+    req.headers['Authorization'] = `Bearer ${token}`;
   }
   return req;
 });
