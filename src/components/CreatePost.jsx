@@ -25,20 +25,18 @@ const CreatePost = ({ onPostCreated, user }) => {
     }
   };
 
-  const handlePostSubmit = async (e) => {
+const handlePostSubmit = async (e) => {
   e.preventDefault();
   setLoading(true);
 
   const formData = new FormData();
   formData.append('content', content);
-  if (selectedFile) {
-    formData.append('image', selectedFile);
-  }
+  if (selectedFile) formData.append('image', selectedFile);
 
   try {
-    // Look how much cleaner this is! 
-    // No need to pass headers: { Authorization: ... }
-    const { data } = await API.post('/posts', formData); 
+    // We use the 'API' instance so we don't have to manually 
+    // grab the token or set headers here.
+    const { data } = await API.post('/posts', formData);
 
     setContent('');
     setSelectedFile(null);
@@ -47,6 +45,7 @@ const CreatePost = ({ onPostCreated, user }) => {
     alert("Post created!");
   } catch (error) {
     console.error("Upload failed", error.response?.data || error.message);
+    alert(error.response?.data?.message || "Post upload failed");
   } finally {
     setLoading(false);
   }

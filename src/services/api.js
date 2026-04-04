@@ -8,8 +8,8 @@ const API = axios.create({
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem('token');
   if (token) {
-    // Some versions of Axios prefer setting it this way to avoid overwriting defaults
     req.headers['Authorization'] = `Bearer ${token}`;
+    console.log("SENDING TOKEN:", `Bearer ${token}`); // 👈 ADD THIS TEMPORARILY
   }
   return req;
 });
