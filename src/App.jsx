@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import {AuthProvider, AuthContext } from './context/AuthContext';
+import { AuthContext } from './context/AuthContext';
+import { AuthProvider } from './context/AuthProvider';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage'
 import Login from './pages/Login';

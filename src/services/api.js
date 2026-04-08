@@ -1,17 +1,20 @@
-import axios from 'axios';
+import axios from "axios";
 
 const API = axios.create({
-   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: "https://social-app-backend-ybpu.onrender.com/api",
 });
 
-// THIS IS THE CRITICAL PART:
-API.interceptors.request.use((req) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    req.headers['Authorization'] = `Bearer ${token}`;
-    console.log("SENDING TOKEN:", `Bearer ${token}`); // 👈 ADD THIS TEMPORARILY
-  }
-  return req;
-});
+API.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Use the .set() method or ensure headers exists
+      config.headers = config.headers || {};
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 export default API;

@@ -1,20 +1,29 @@
+// pages/Signup.jsx
 import React, { useState, useContext } from 'react';
-import { 
-  Container, TextField, Button, Typography, Box, Paper, Link, Alert, CircularProgress 
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Paper,
+  Link,
+  Alert,
+  CircularProgress,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import API from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 
 const Signup = () => {
-  const [formData, setFormData] = useState({ 
-    username: '', 
-    email: '', 
-    password: '' 
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -28,19 +37,20 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      // Endpoint matches the authRoutes.js we built earlier
       const { data } = await API.post('/auth/signup', formData);
-      
-      // 1. Store the JWT token for persistence
+
+      // Store JWT
       localStorage.setItem('token', data.token);
-      
-      // 2. Update global AuthContext
+
+      // Update AuthContext
       setUser(data);
-      
-      // 3. Navigate to the Home feed
+
+      // Navigate home
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Signup failed. Please try again.');
+      setError(
+        err.response?.data?.message || 'Signup failed. Please try again.'
+      );
     } finally {
       setLoading(false);
     }
@@ -48,12 +58,35 @@ const Signup = () => {
 
   return (
     <Container maxWidth="xs">
-      <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Paper elevation={6} sx={{ p: 4, width: '100%', borderRadius: 3 }}>
-          <Typography variant="h5" align="center" sx={{ fontWeight: 'bold', mb: 1 }}>
+      <Box
+        sx={{
+          mt: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Paper
+          elevation={6}
+          sx={{
+            p: 4,
+            width: '100%',
+            borderRadius: 3,
+          }}
+        >
+          <Typography
+            variant="h5"
+            align="center"
+            sx={{ fontWeight: 'bold', mb: 1 }}
+          >
             Create Account
           </Typography>
-          <Typography variant="body2" align="center" color="text.secondary" sx={{ mb: 3 }}>
+          <Typography
+            variant="body2"
+            align="center"
+            color="text.secondary"
+            sx={{ mb: 3 }}
+          >
             Join the community and start sharing.
           </Typography>
 
@@ -73,7 +106,9 @@ const Signup = () => {
               autoFocus
               value={formData.username}
               onChange={handleChange}
-              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+              sx={{
+                '& .MuiOutlinedInput-root': { borderRadius: 2 },
+              }}
             />
             <TextField
               fullWidth
@@ -84,7 +119,9 @@ const Signup = () => {
               required
               value={formData.email}
               onChange={handleChange}
-              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+              sx={{
+                '& .MuiOutlinedInput-root': { borderRadius: 2 },
+              }}
             />
             <TextField
               fullWidth
@@ -95,19 +132,23 @@ const Signup = () => {
               required
               value={formData.password}
               onChange={handleChange}
-              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+              sx={{
+                '& .MuiOutlinedInput-root': { borderRadius: 2 },
+              }}
             />
-            
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               disabled={loading}
-              sx={{ 
-                mt: 3, mb: 2, py: 1.5, 
-                borderRadius: 2, 
-                fontWeight: 'bold', 
-                textTransform: 'none' 
+              sx={{
+                mt: 3,
+                mb: 2,
+                py: 1.5,
+                borderRadius: 2,
+                fontWeight: 'bold',
+                textTransform: 'none',
               }}
             >
               {loading ? <CircularProgress size={24} color="inherit" /> : 'Register'}
@@ -116,11 +157,14 @@ const Signup = () => {
             <Box sx={{ textAlign: 'center', mt: 2 }}>
               <Typography variant="body2" color="text.secondary">
                 Already have an account?{' '}
-                <Link 
-                  component="button" 
+                <Link
+                  component="button"
                   type="button"
-                  onClick={() => navigate('/login')} 
-                  sx={{ fontWeight: 'bold', textDecoration: 'none' }}
+                  onClick={() => navigate('/login')}
+                  sx={{
+                    fontWeight: 'bold',
+                    textDecoration: 'none',
+                  }}
                 >
                   Login here
                 </Link>
