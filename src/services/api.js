@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://social-app-backend-ybpu.onrender.com/api",
+ baseURL: import.meta.env.VITE_API_URL || "http://localhost:4000"
 });
 
 API.interceptors.request.use(
